@@ -1,19 +1,40 @@
 import smtplib
+from typing import Optional
+
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
+from santacode.person import Person
+from santacode.text import TESTO
+
+
+def build_email(_from: Person, to: Person) -> str:
+    completa = dict()
+
+    completa["sender"] = _from.name
+    completa["receivername"] = to.name
+    completa["receiversurname"] = to.surname
+    completa["address"] = to.address
+    completa["number"] = to.number
+    if _from.gender == "f":
+        completa["gender"] = "a"
+    else:
+        completa["gender"] = "o"
+
+    return TESTO % completa
+
 
 class EmailSender:
-    def __init__(self, email_address: str, username: str, password: str, smtp_address: str, auth_protocol: str= "None",
-                 port=None):
+    def __init__(self, email_address: str, username: str, password: str, smtp_address: str,
+                 auth_protocol: Optional[str] = "None", port: Optional[int] = None):
         """
 
         :param email_address: Email Address of the sender
         :param username: Username for login
         :param password: Password for login
-        :param smtp_address: SMTP address of the SMTP server
+        :param smtp_address: address of the SMTP server
         :param auth_protocol: STMP Authentication protocol can be "TSL" or "SSL"
-        :param port: port. Defult is 465 for protocol SSL, 587 for protocol TLS, 25 otherwise
+        :param port: port. Default is 465 for protocol SSL, 587 for protocol TLS, 25 otherwise
         """
         self.email_address = email_address
         self.username = username

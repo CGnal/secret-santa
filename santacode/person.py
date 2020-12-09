@@ -34,7 +34,7 @@ def get_person_from_name(people_list: List[Person], name: str) -> List[Person]:
     final_list = []
     name_list = re.split(', |,', name.rstrip())
     for name in name_list:
-        condition = [p for p in people_list if name == p.name + p.surname]
+        condition = [p for p in people_list if name == p.name + " " + p.surname]
         if len(condition) == 0:
             logging.warning("Cannot avoid match with %s. This participant is not found, check "
                             "the spelling." % name)
@@ -51,8 +51,9 @@ def get_conditions(people_dft: pd.DataFrame) -> (List[Person], Dict[Person, Pers
     people_list = []
     conditions_list = {}
     for i, name in enumerate(people_dft.index):
-        new_person = Person(name, people_dft.iloc[i]["cognome"], people_dft.iloc[i]["email"],
-                            people_dft.iloc[i]["indirizzo"], people_dft.iloc[i]["telefono"], people_dft.iloc[i]["gender"])
+        new_person = Person(name.rstrip(), people_dft.iloc[i]["cognome"].rstrip(), people_dft.iloc[i]["email"].rstrip(),
+                            people_dft.iloc[i]["indirizzo"].rstrip(), people_dft.iloc[i]["telefono"],
+                            people_dft.iloc[i]["gender"].rstrip())
         people_list.append(new_person)
         if people_dft.iloc[i]["match non validi"] is not np.nan:
             conditions_list[new_person] = people_dft.iloc[i]["match non validi"]

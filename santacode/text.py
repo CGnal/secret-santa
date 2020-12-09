@@ -1,4 +1,4 @@
-testo = """\
+TESTO = """\
     <html>
   <head></head>
   <body>

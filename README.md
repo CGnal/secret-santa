@@ -23,13 +23,13 @@ git clone https://github.com/CGnal/secret-santa.git
 
 ### Inserisci i nomi dei partecipanti
 
-Cambia il file people.xlsx e inserisci i nomi e l'indirizzo email di tutti i partecipanti. 
-Se non potete scambiarvi i regali di persona inserite anche gli indirizzi ed eventualmente i numeri di telefono per
+Cambia il file ```santacode\people.xlsx``` inserendo i nomi e l'indirizzo email di tutti i partecipanti. 
+Se non potete scambiarvi i regali di persona inserisci anche gli indirizzi ed eventualmente i numeri di telefono per
 poter spedire il regalo direttamente a casa. 
 Puoi specificare eventuali match non validi. Specifica nome e cognome nella colonna "match non validi".
 Se vuoi evitare un match con più di una persona separa i nomi con una virgola. 
 
-Puoi modificare il testo che verrà inviato per mail in ```code/text.py```
+Puoi modificare il testo che verrà inviato per mail in ```santacode/text.py```
 
 ### Esegui il codice
 
@@ -39,7 +39,7 @@ Assicurati di aver installato Python3.6 o una versione seguente sul tuo computer
 Da terminale esegui
 
 ```
-cd secretsanta
+cd secret-santa
 python main.py
 ```
 
