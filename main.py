@@ -1,34 +1,49 @@
+import argparse
 import getpass
+
 import pandas as pd
 
-from code.person import get_conditions
-from code.solver import solver, saver
-from code.text import testo
-from code.email_sender import EmailSender
+from santacode.email_sender import EmailSender, build_email
+from santacode.person import get_conditions
+from santacode.solver import solver, saver
 
-people_dft = pd.read_excel("code/people.xlsx", index_col=0)
-people_list, invalid_links = get_conditions(people_dft)
-match = solver(people_list, invalid_links)
-saver(match)
+
+def parse_args():
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('--sender', help='Email of the sender', default=None)
+
+    parser.add_argument('--username', help='username for the mail server', default=None)
+
+    parser.add_argument('--password', help='password for the mail server', default=None)
+
+    parser.add_argument('--smtp-server', help='address of the SMTP server', default=None)
+
+    parser.add_argument('--protocol', help='protocol for the SMTP server', default=None)
+
+    parser.add_argument('--input-file', help='Name of the Excel input file', default="santacode/people.xlsx")
+
+    return parser.parse_args()
+
 
 if __name__ == '__main__':
 
-    sender = input("Type the email of the sender: ")
-    username = input("Type your username and press enter: ")
-    password = getpass.getpass(prompt="Type your password and press enter: ")
-    addres_smtp = input("Type the address of the SMTP server and press enter: ")
-    auth_protocol = input("It can be TLS or SSL: ")
+    args = parse_args()
+
+    sender = input("Type the email of the sender: ") if args.sender is None else args.sender
+    username = input("Type your username and press enter: ") if args.username is None else args.username
+    password = getpass.getpass(prompt="Type your password and press enter: ") if args.password is None \
+        else args.password
+    addres_smtp = input("Type the address of the SMTP server and press enter: ") if args.smtp_server is None \
+        else args.smtp_server
+    auth_protocol = input("Protocol: it can be TLS, SSL or None: ") if args.protocol is None else args.protocol
+
     email = EmailSender(sender, username, password, addres_smtp, auth_protocol)
 
-    completa = {}
-    for k, v in match.items():
-        completa["sender"] = k.name
-        completa["receivername"] = v.name
-        completa["receiversurname"] = v.surname
-        completa["address"] = v.address
-        completa["number"] = v.number
-        if k.gender == "f":
-            completa["gender"] = "a"
-        else:
-            completa["gender"] = "o"
-        email.send_mail(testo % completa, k.email, "Secret Santa")
+    people_dft = pd.read_excel(args.input_file, index_col=0)
+    people_list, invalid_links = get_conditions(people_dft)
+    match = solver(people_list, invalid_links)
+    saver(match)
+
+    for _from, _to in match.items():
+        email.send_mail(build_email(_from, _to), _from.email, "Secret Santa")

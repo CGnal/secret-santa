@@ -2,7 +2,7 @@ from random import choice
 import time
 import os
 from typing import List, Dict, Optional
-from code.person import Person
+from santacode.person import Person
 
 
 TIMEOUT = 0.2
