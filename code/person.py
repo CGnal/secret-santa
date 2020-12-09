@@ -2,6 +2,7 @@ import re
 import numpy as np
 import pandas as pd
 import logging
+from typing import List, Dict
 
 
 class Person:
@@ -9,8 +10,11 @@ class Person:
     def __init__(self, name: str, surname: str, email: str, address: str, number: str, gender: str = "m"):
         """
         :param name: name
+        :param surname: surname
         :param email: email
-        :param gender: gender
+        :param address: address
+        :param number: telephone number
+        :param gender: gender ("m" or "f"). It is asked for writing the email properly.
         """
         self.name = name
         self.surname = surname
@@ -20,7 +24,7 @@ class Person:
         self.number = number
 
 
-def get_person_from_name(people_list: list, name: str):
+def get_person_from_name(people_list: List[Person], name: str) -> List[Person]:
     """
     Given a name get the corresponding Person class
 
@@ -39,7 +43,7 @@ def get_person_from_name(people_list: list, name: str):
     return final_list
 
 
-def get_conditions(people_dft: pd.DataFrame):
+def get_conditions(people_dft: pd.DataFrame) -> (List[Person], Dict[Person, Person]):
     """
     Get people list and invalid match list
     :param people_dft: dataframe with name, email, gender and condition for each participant

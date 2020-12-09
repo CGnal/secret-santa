@@ -18,7 +18,7 @@ Invece che estrarre il nome del collega con dei bigliettini, il nome del collega
 Copia il repository sul tuo computer.
 
 ```
-git clone 
+git clone https://github.com/CGnal/secret-santa.git
 ```
 
 ### Inserisci i nomi dei partecipanti
@@ -33,10 +33,10 @@ Puoi modificare il testo che verrà inviato per mail in ```code/text.py```
 
 ### Esegui il codice
 
-Assicurati di aver installato Python3.6 sul tuo computer con i pacchetti specificati in 
+Assicurati di aver installato Python3.6 o una versione seguente sul tuo computer con i pacchetti specificati in 
 ```requirements.txt```.
 
-Da riga di comando esegui
+Da terminale esegui
 
 ```
 cd secretsanta

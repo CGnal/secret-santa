@@ -4,28 +4,17 @@ from email.mime.multipart import MIMEMultipart
 
 
 class EmailSender:
-    """
-        Email Sender Utility Class
-        ...
-        Attributes
-        ----------
-        email_address : str
-            Email Address of the sender
-        username : str
-            Username for login
-        password : str
-            Password for login
-        smtp_address : str
-            SMTP address of the SMTP server
-        auth_protocol : start
-            STMP Authentication protocol can be "TSL" or "SSL"
-        Methods
-        -------
-        send_mail(text, destination)
-            Send the mail with a specific text to a specific destination
+    def __init__(self, email_address: str, username: str, password: str, smtp_address: str, auth_protocol: str= "None",
+                 port=None):
         """
 
-    def __init__(self, email_address, username, password, smtp_address, auth_protocol="None", port=None):
+        :param email_address: Email Address of the sender
+        :param username: Username for login
+        :param password: Password for login
+        :param smtp_address: SMTP address of the SMTP server
+        :param auth_protocol: STMP Authentication protocol can be "TSL" or "SSL"
+        :param port: port. Defult is 465 for protocol SSL, 587 for protocol TLS, 25 otherwise
+        """
         self.email_address = email_address
         self.username = username
         self.password = password
@@ -33,16 +22,12 @@ class EmailSender:
         self.auth_protocol = auth_protocol
         self.port = port
 
-    def send_mail(self, text, destination, subject, html=True):
+    def send_mail(self, text: str, destination: str, subject: str, html: bool =True):
         """
         :param text: The text of the email
-        :type text: str
         :param destination: The destination email address
-        :type destination: str
         :param subject: The email subject
-        :type subject: str
         :param html: if text is with html format. Default True
-        :type html: bool
         :return:
         """
 

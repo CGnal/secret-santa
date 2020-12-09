@@ -11,7 +11,6 @@ people_list, invalid_links = get_conditions(people_dft)
 match = solver(people_list, invalid_links)
 saver(match)
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
 
     sender = input("Type the email of the sender: ")

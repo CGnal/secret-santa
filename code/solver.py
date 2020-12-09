@@ -1,6 +1,9 @@
 from random import choice
 import time
 import os
+from typing import List, Dict, Optional
+from code.person import Person
+
 
 TIMEOUT = 0.2
 
@@ -9,12 +12,14 @@ class SolvingError(Exception):
     pass
 
 
-def solver(people, invalid_match={}):
+def solver(people: List[Person], invalid_match: Optional[Dict[Person, Person]] = None):
     """
     Solver
     :param people: list of all partecipant
     :param invalid_match: list with invalid matches
     """
+    if invalid_match is None:
+        invalid_match = {}
     start_time = time.time()
     while True:
         receiver = people.copy()
@@ -32,7 +37,7 @@ def solver(people, invalid_match={}):
             raise SolvingError('Could not solve.')
 
 
-def saver(solved_dict):
+def saver(solved_dict: Dict[Person, Person]):
     """
     Save matches
     :param solved_dict: dict with match
