@@ -11,15 +11,15 @@ from santacode.solver import solver, saver
 def parse_args():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--sender', help='Email of the sender', default=None)
+    parser.add_argument('--sender', help='Email of the sender', default="nomail@cgnal.com")
 
-    parser.add_argument('--username', help='username for the mail server', default=None)
+    parser.add_argument('--username', help='username for the mail server', default="nomail@cgnal.com")
 
     parser.add_argument('--password', help='password for the mail server', default=None)
 
-    parser.add_argument('--smtp-server', help='address of the SMTP server', default=None)
+    parser.add_argument('--smtp-server', help='address of the SMTP server', default="smtp.gmail.com")
 
-    parser.add_argument('--protocol', help='protocol for the SMTP server', default=None)
+    parser.add_argument('--protocol', help='protocol for the SMTP server', default="SSL")
 
     parser.add_argument('--input-file', help='Name of the Excel input file', default="santacode/people.xlsx")
 

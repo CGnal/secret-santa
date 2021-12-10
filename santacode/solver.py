@@ -30,6 +30,10 @@ def solver(people: List[Person], invalid_match: Optional[Dict[Person, Person]] =
                 break
             rec = choice(valid)
             matches[p] = rec
+            if rec not in invalid_match.keys():
+                invalid_match[rec] = [p]
+            elif p not in invalid_match[rec]:
+                invalid_match[rec] = invalid_match[rec] + [p]
             receiver.remove(rec)
         if len(matches) == len(people):
             return matches
